@@ -27,8 +27,8 @@ header p{margin:0;color:var(--muted);max-width:56ch}
 .app::before{content:"";position:absolute;inset:0 0 auto;height:4px;border-radius:18px 18px 0 0;background:var(--c)}
 .top{display:flex;gap:14px;align-items:center}
 .ico{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);flex:none}
-.logo{height:48px;max-width:132px;display:flex;align-items:center;flex:none;padding:6px 10px;border-radius:13px;background:#fff;border:1px solid var(--line)}
-.logo img{max-height:36px;max-width:112px;object-fit:contain;display:block}
+.logo{width:60px;height:60px;display:grid;place-items:center;flex:none;padding:3px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:contain;display:block}
 [hidden]{display:none!important}
 .ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .app h2{margin:0;font-size:1.12rem;font-weight:600}
@@ -75,7 +75,7 @@ const RESPALDO = {"titulo":"Aplicaciones Fermetal","subtitulo":"Herramientas com
  {"id":"visitas","nombre":"Gestor de Visitas","descripcion":"Registra visitas a clientes con ubicación GPS y fotos de evidencia. Estadísticas, mapa y control del trabajo de cada vendedor.","url":"./visitas/","color":"#0f766e","icono":"pin","etiquetas":["GPS","Fotos","Estadísticas"],"nueva":true},
  {"id":"cotizador","nombre":"Cotizador Fermetal","descripcion":"Cotizaciones en USD y Bs a tasa BCV, con PDF y envío por WhatsApp o email.","url":"https://ijmf1978.github.io/cotizador/","color":"#b81920","icono":"doc","logo":"logos/fermetal.jpg","etiquetas":["USD / Bs","PDF","WhatsApp"]},
  {"id":"cotizador2","nombre":"Cotizador Unique","descripcion":"Cotizador con la lista de precios y clientes de Unique.","url":"https://ijmf1978.github.io/cotizador2/","color":"#7c3aed","icono":"doc","logo":"logos/unique.jpg","etiquetas":["Unique","PDF"]},
- {"id":"crm","nombre":"CRM","descripcion":"Clientes, oportunidades y seguimiento comercial del equipo.","url":"https://ijmf1978.github.io/crm/","color":"#c2410c","icono":"users","etiquetas":["Clientes","Oportunidades"]}]};
+ {"id":"crm","nombre":"CRM","descripcion":"Clientes, oportunidades y seguimiento comercial del equipo.","url":"https://ijmf1978.github.io/CRM/","color":"#c2410c","icono":"users","etiquetas":["Clientes","Oportunidades"]}]};
 const ICONOS = {
   pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
   doc:'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',

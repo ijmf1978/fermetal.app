@@ -162,7 +162,7 @@ async function entrar() {
   if (!navigator.onLine) { err.textContent = 'Necesitas internet para entrar la primera vez.'; return; }
   b.disabled = true; b.textContent = 'Entrando…'; err.textContent = '';
   try {
-    const j = await api({ action: 'login', usuario: f.usuario.value.trim(), clave: f.clave.value }, true);
+    const j = await api({ action: 'login', usuario: f.usuario.value.trim().toLowerCase(), clave: f.clave.value }, true);
     const anterior = await kv('ultimoUsuario');
     if (anterior && anterior !== j.usuario.id) { // otro usuario en este teléfono: limpia datos ajenos ya enviados
       const pend = (await DB.all('visitas')).filter(v => !v.synced);
@@ -654,12 +654,13 @@ function vCuenta() {
     <div class="row wrap"><button class="btn sm" data-act="cambiarClave">Cambiar mi clave</button><button class="btn sm" data-act="sync">Sincronizar ahora</button></div>
     <small class="muted">Última sincronización: ${S.lastSync ? fFecha(S.lastSync) : 'nunca'} · Pendientes: ${pendientes()}</small></div>
   ${esAdmin() ? `<div class="card stack"><div class="row between"><h3>Usuarios (${usuarios.length})</h3><button class="btn sm pri" data-act="editarUsuario">+ Usuario</button></div>
+    ${sinUsuarioConCodigo().length ? `<div class="banner info row between wrap" style="gap:8px"><span><b>${sinUsuarioConCodigo().length}</b> vendedor(es) activos sin usuario.</span><button class="btn sm pri" data-act="crearUsuariosMasivo">Crear usuarios con su código</button></div>` : ''}
     <small class="muted">Cada vendedor entra con el usuario y la clave que le asignes aquí. Los administradores solo pueden crearse por otro administrador.</small>
     <div class="list">${usuarios.map(v => `<button class="item" data-act="editarUsuario" data-id="${v.id}"><span class="ic ${v.rol === 'admin' ? 'info' : ''}">${esc(v.nombre.slice(0, 2).toUpperCase())}</span>
       <span class="grow"><b>${esc(v.nombre)}</b><span class="meta"><span>${v.usuario ? 'Usuario: ' + esc(v.usuario) : '<span class="badge warn">Sin usuario: no puede entrar</span>'}</span><span>${S.clientes.filter(c => c.vendedorId === v.id).length} clientes</span></span></span>
       ${v.rol === 'admin' ? '<span class="badge info">Admin</span>' : ''}${v.activo === false ? '<span class="badge">Inactivo</span>' : ''}</button>`).join('')}</div></div>
   <div class="card stack"><h3>Exportar</h3><div class="row wrap"><button class="btn sm" data-act="exportVisitas">${ICON.down} Visitas</button><button class="btn sm" data-act="exportClientes">${ICON.down} Clientes</button></div></div>` : ''}
-  <p class="muted" style="text-align:center;font-size:.8rem">Gestor de Visitas v2.0 · <a href="../">Portal de aplicaciones</a></p></div>`;
+  <p class="muted" style="text-align:center;font-size:.8rem">Gestor de Visitas v2.1 · <a href="../">Portal de aplicaciones</a></p></div>`;
 }
 function editarUsuario(id) {
   const v = id ? vendedor(id) : { nombre: '', usuario: '', telefono: '', email: '', rol: 'vendedor', activo: true };
@@ -674,7 +675,7 @@ function editarUsuario(id) {
     <div class="err" id="usrErr"></div>
   </form>
   <div class="sheet-f"><button class="btn pri" data-act="guardarUsuario" data-id="${esc(id || '')}">Guardar</button></div>`);
-  if (!sugerido && v.nombre) { const p = norm(v.nombre).split(/\s+/); $('[name=usuario]').value = (p[0][0] + (p[1] || p[0])).replace(/[^a-z0-9]/g, ''); }
+  if (!sugerido && codigoDe(v)) $('[name=usuario]').value = codigoDe(v).toLowerCase(); else if (!sugerido && v.nombre) { const p = norm(v.nombre).split(/\s+/); $('[name=usuario]').value = (p[0][0] + (p[1] || p[0])).replace(/[^a-z0-9]/g, ''); }
 }
 async function guardarUsuario(id, btn) {
   const f = $('#formUsuario'), err = $('#usrErr');
@@ -687,6 +688,34 @@ async function guardarUsuario(id, btn) {
     await DB.put('vendedores', j.vendedor); cerrarModal(); render();
     toast(d.clave ? `Guardado. Entrega a ${d.nombre}: usuario "${d.usuario}" y la clave que escribiste.` : 'Usuario guardado', 5000);
   } catch (e) { err.textContent = e.message; } finally { btn.disabled = false; }
+}
+const codigoDe = v => (String(v.nombre || '').match(/\(([A-Z]{2,4}-\d{4,5})\)\s*$/) || [])[1] || '';
+const sinUsuarioConCodigo = () => S.vendedores.filter(v => v.activo !== false && !v.usuario && codigoDe(v));
+function crearUsuariosMasivo() {
+  const l = sinUsuarioConCodigo();
+  abrirModal(`<div class="sheet-h"><h2>Crear usuarios</h2><button class="icon-btn" data-act="cerrar">${ICON.x}</button></div>
+  <div class="sheet-b"><p style="margin:0">Se creará el acceso de <b>${l.length}</b> vendedor(es) activos. Su <b>usuario será su código de vendedor</b> (ej. ${esc(codigoDe(l[0]).toLowerCase())}) y todos tendrán la misma clave inicial.</p>
+    <label class="f">Clave inicial para todos<input id="claveMasiva" type="text" autocomplete="off" placeholder="mínimo 4 caracteres"></label>
+    <small class="muted">Pide a cada vendedor que la cambie en <b>Mi cuenta → Cambiar mi clave</b> al entrar por primera vez.</small>
+    <div id="masivoProg" class="muted"></div><div class="err" id="masivoErr"></div></div>
+  <div class="sheet-f"><button class="btn" data-act="cerrar">Cancelar</button><button class="btn pri" data-act="ejecutarMasivo">Crear ${l.length} usuarios</button></div>`);
+}
+async function ejecutarMasivo(btn) {
+  const clave = $('#claveMasiva').value, prog = $('#masivoProg'), err = $('#masivoErr');
+  if (clave.length < 4) { err.textContent = 'La clave debe tener al menos 4 caracteres'; return; }
+  if (!navigator.onLine) { err.textContent = 'Necesitas internet'; return; }
+  const l = sinUsuarioConCodigo(); btn.disabled = true; $('#claveMasiva').disabled = true; let ok = 0; const fallos = [];
+  for (const v of l) {
+    const usuario = codigoDe(v).toLowerCase();
+    try {
+      const j = await api({ action: 'guardarUsuario', usuario: { id: v.id, nombre: v.nombre, usuario, clave, telefono: v.telefono || '', rol: v.rol || 'vendedor', activo: true } });
+      Object.assign(v, j.vendedor); ok++;
+    } catch (e) { fallos.push(usuario + ': ' + e.message); }
+    prog.textContent = `Creando… ${ok + fallos.length} de ${l.length}`;
+  }
+  await DB.clear('vendedores'); await DB.putMany('vendedores', S.vendedores);
+  prog.textContent = `Listo: ${ok} usuarios creados.`; err.textContent = fallos.join(' · ');
+  btn.textContent = 'Cerrar'; btn.disabled = false; btn.dataset.act = 'cerrarRender';
 }
 function cambiarClave() {
   abrirModal(`<div class="sheet-h"><h2>Cambiar mi clave</h2><button class="icon-btn" data-act="cerrar">${ICON.x}</button></div>
@@ -717,7 +746,7 @@ async function onClick(e) {
   const el = e.target.closest('[data-act]'); if (!el) return;
   const a = el.dataset.act, id = el.dataset.id;
   if (el.tagName === 'INPUT' && a !== 'mapaCli') return;
-  const SOLO_ADMIN = ['importar', 'confirmarImport', 'exportVisitas', 'exportClientes', 'exportStats', 'editarCliente', 'guardarCliente', 'borrarCliente', 'asignarFiltro', 'editarUsuario', 'guardarUsuario', 'borrarVisita'];
+  const SOLO_ADMIN = ['importar', 'confirmarImport', 'exportVisitas', 'exportClientes', 'exportStats', 'editarCliente', 'guardarCliente', 'borrarCliente', 'asignarFiltro', 'editarUsuario', 'guardarUsuario', 'borrarVisita', 'crearUsuariosMasivo', 'ejecutarMasivo'];
   if (SOLO_ADMIN.includes(a) && !esAdmin()) return toast('Solo el administrador puede hacer esto');
   switch (a) {
     case 'nueva': abrirFormVisita(); break;
@@ -747,6 +776,9 @@ async function onClick(e) {
     case 'editarUsuario': editarUsuario(id); break;
     case 'guardarUsuario': guardarUsuario(id, el); break;
     case 'cambiarClave': cambiarClave(); break;
+    case 'crearUsuariosMasivo': crearUsuariosMasivo(); break;
+    case 'ejecutarMasivo': ejecutarMasivo(el); break;
+    case 'cerrarRender': cerrarModal(); render(); break;
     case 'guardarClave': { const f = $('#formClave'); try { await api({ action: 'cambiarClave', actual: f.actual.value, nueva: f.nueva.value }); cerrarModal(); toast('Clave cambiada ✓'); } catch (err) { $('#clvErr').textContent = err.message; } break; }
     case 'exportVisitas': exportVisitas(); break;
     case 'exportClientes': exportClientes(); break;

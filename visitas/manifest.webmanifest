@@ -1,0 +1,15 @@
+{
+  "name": "Gestor de Visitas",
+  "short_name": "Visitas",
+  "description": "Control de visitas de vendedores con GPS, fotos y estadísticas",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f5f7",
+  "theme_color": "#0f766e",
+  "lang": "es",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

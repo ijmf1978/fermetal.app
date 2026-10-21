@@ -27,6 +27,9 @@ header p{margin:0;color:var(--muted);max-width:56ch}
 .app::before{content:"";position:absolute;inset:0 0 auto;height:4px;border-radius:18px 18px 0 0;background:var(--c)}
 .top{display:flex;gap:14px;align-items:center}
 .ico{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);flex:none}
+.logo{height:48px;max-width:132px;display:flex;align-items:center;flex:none;padding:6px 10px;border-radius:13px;background:#fff;border:1px solid var(--line)}
+.logo img{max-height:36px;max-width:112px;object-fit:contain;display:block}
+[hidden]{display:none!important}
 .ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .app h2{margin:0;font-size:1.12rem;font-weight:600}
 .new{font-size:.68rem;font-weight:600;padding:2px 7px;border-radius:99px;background:var(--c);color:#fff;margin-left:6px;vertical-align:2px}
@@ -70,8 +73,8 @@ footer{margin-top:40px;color:var(--muted);font-size:.8rem;text-align:center}
 // Si apps.json no carga (por ejemplo al abrir el archivo localmente), se usa esta copia.
 const RESPALDO = {"titulo":"Aplicaciones Fermetal","subtitulo":"Herramientas comerciales del equipo de ventas","apps":[
  {"id":"visitas","nombre":"Gestor de Visitas","descripcion":"Registra visitas a clientes con ubicación GPS y fotos de evidencia. Estadísticas, mapa y control del trabajo de cada vendedor.","url":"./visitas/","color":"#0f766e","icono":"pin","etiquetas":["GPS","Fotos","Estadísticas"],"nueva":true},
- {"id":"cotizador","nombre":"Cotizador Fermetal","descripcion":"Cotizaciones en USD y Bs a tasa BCV, con PDF y envío por WhatsApp o email.","url":"https://ijmf1978.github.io/cotizador/","color":"#1d4ed8","icono":"doc","etiquetas":["USD / Bs","PDF","WhatsApp"]},
- {"id":"cotizador2","nombre":"Cotizador Unique","descripcion":"Cotizador con la lista de precios y clientes de Unique.","url":"https://ijmf1978.github.io/cotizador2/","color":"#7c3aed","icono":"doc","etiquetas":["Unique","PDF"]},
+ {"id":"cotizador","nombre":"Cotizador Fermetal","descripcion":"Cotizaciones en USD y Bs a tasa BCV, con PDF y envío por WhatsApp o email.","url":"https://ijmf1978.github.io/cotizador/","color":"#b81920","icono":"doc","logo":"logos/fermetal.jpg","etiquetas":["USD / Bs","PDF","WhatsApp"]},
+ {"id":"cotizador2","nombre":"Cotizador Unique","descripcion":"Cotizador con la lista de precios y clientes de Unique.","url":"https://ijmf1978.github.io/cotizador2/","color":"#7c3aed","icono":"doc","logo":"logos/unique.jpg","etiquetas":["Unique","PDF"]},
  {"id":"crm","nombre":"CRM","descripcion":"Clientes, oportunidades y seguimiento comercial del equipo.","url":"https://ijmf1978.github.io/crm/","color":"#c2410c","icono":"users","etiquetas":["Clientes","Oportunidades"]}]};
 const ICONOS = {
   pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
@@ -89,7 +92,7 @@ function pintar(cfg){
   document.title = cfg.titulo || 'Portal de Aplicaciones';
   document.getElementById('apps').innerHTML = (cfg.apps || []).map(a => `
     <article class="app" style="--c:${esc(a.color || '#0f766e')}">
-      <div class="top"><span class="ico"><svg viewBox="0 0 24 24">${ICONOS[a.icono] || ICONOS.box}</svg></span>
+      <div class="top">${a.logo ? `<span class="logo"><img src="${esc(a.logo)}" alt="Logo ${esc(a.nombre)}" onerror="this.parentNode.hidden=true;this.parentNode.nextElementSibling.hidden=false"></span><span class="ico" hidden><svg viewBox="0 0 24 24">${ICONOS[a.icono] || ICONOS.box}</svg></span>` : `<span class="ico"><svg viewBox="0 0 24 24">${ICONOS[a.icono] || ICONOS.box}</svg></span>`}
         <h2>${esc(a.nombre)}${a.nueva ? '<span class="new">Nueva</span>' : ''}</h2></div>
       <p>${esc(a.descripcion)}</p>
       <div class="tags">${(a.etiquetas || []).map(t => `<span>${esc(t)}</span>`).join('')}</div>

@@ -9,7 +9,11 @@
       "url": "./visitas/",
       "color": "#0f766e",
       "icono": "pin",
-      "etiquetas": ["GPS", "Fotos", "Estadísticas"],
+      "etiquetas": [
+        "GPS",
+        "Fotos",
+        "Estadísticas"
+      ],
       "nueva": true
     },
     {
@@ -17,9 +21,14 @@
       "nombre": "Cotizador Fermetal",
       "descripcion": "Cotizaciones en USD y Bs a tasa BCV, con PDF y envío por WhatsApp o email.",
       "url": "https://ijmf1978.github.io/cotizador/",
-      "color": "#1d4ed8",
+      "color": "#b81920",
       "icono": "doc",
-      "etiquetas": ["USD / Bs", "PDF", "WhatsApp"]
+      "etiquetas": [
+        "USD / Bs",
+        "PDF",
+        "WhatsApp"
+      ],
+      "logo": "logos/fermetal.jpg"
     },
     {
       "id": "cotizador2",
@@ -28,7 +37,11 @@
       "url": "https://ijmf1978.github.io/cotizador2/",
       "color": "#7c3aed",
       "icono": "doc",
-      "etiquetas": ["Unique", "PDF"]
+      "etiquetas": [
+        "Unique",
+        "PDF"
+      ],
+      "logo": "logos/unique.jpg"
     },
     {
       "id": "crm",
@@ -37,7 +50,10 @@
       "url": "https://ijmf1978.github.io/crm/",
       "color": "#c2410c",
       "icono": "users",
-      "etiquetas": ["Clientes", "Oportunidades"]
+      "etiquetas": [
+        "Clientes",
+        "Oportunidades"
+      ]
     }
   ]
 }

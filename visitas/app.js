@@ -565,19 +565,30 @@ function pedirArchivo() {
 }
 async function confirmarImport() {
   const { data, map } = IMP, g = (r, k) => map[k] != null ? String(r[map[k]] ?? '').trim() : '';
-  const porRif = new Map(S.clientes.filter(c => c.rif).map(c => [norm(c.rif), c])), out = []; let n = 0, u = 0, sinV = 0;
+  const key = s => String(s || '').toUpperCase().replace(/[^A-Z0-9]/g, '');   // RIF sin guiones ni espacios
+  const idx = new Map(); S.clientes.forEach(c => { const k = key(c.rif); if (!k) return; if (!idx.has(k)) idx.set(k, []); idx.get(k).push(c); });
+  const buscarVend = t => {                                                 // por código de vendedor, nombre o usuario
+    const n = norm(t), k = key(t); if (!n) return '';
+    const v = S.vendedores.find(x => key(codigoDe(x)) === k || key((String(x.nombre).match(/\(([^)]+)\)\s*$/) || [])[1]) === k || norm(x.usuario) === n || norm(x.nombre) === n || (/^vacante/.test(norm(x.nombre)) && key(x.nombre).endsWith(k)));
+    return v ? v.id : null;
+  };
+  const out = []; let n = 0, u = 0, sinV = 0;
   for (const r of data) {
-    const nombre = g(r, 'nombre'); if (!nombre) continue;
-    const rif = g(r, 'rif'); let c = rif && porRif.get(norm(rif));
-    if (c) u++; else { c = { id: uid(), lat: null, lng: null, vendedorId: '' }; S.clientes.push(c); n++; if (rif) porRif.set(norm(rif), c); }
-    Object.assign(c, { nombre, rif: rif || c.rif || '', codigo: rif || c.codigo || '', actualizado: new Date().toISOString(), dirty: true });
-    ['telefono', 'email', 'direccion', 'zona', 'notas'].forEach(k => { const v = g(r, k); if (v) c[k] = v; else if (c[k] == null) c[k] = ''; });
-    if (map.vendedor != null) { const vn = norm(g(r, 'vendedor')); const vd = S.vendedores.find(v => norm(v.nombre) === vn || norm(v.usuario) === vn); if (vd) c.vendedorId = vd.id; else if (vn) sinV++; }
-    c._q = norm([c.nombre, c.rif, c.codigo, c.zona].join(' ')); out.push(c);
+    const nombre = g(r, 'nombre'), rif = g(r, 'rif'); if (!nombre && !rif) continue;
+    let lista = rif ? idx.get(key(rif)) : null;
+    if (lista) u += lista.length;
+    else { const c = { id: uid(), codigo: rif, rif, nombre, telefono: '', email: '', direccion: '', zona: '', notas: '', lat: null, lng: null, vendedorId: '' }; S.clientes.push(c); lista = [c]; if (rif) idx.set(key(rif), lista); n++; }
+    const vid = map.vendedor != null ? buscarVend(g(r, 'vendedor')) : undefined; if (vid === null) sinV++;
+    for (const c of lista) {
+      if (nombre && !c.nombre) c.nombre = nombre;
+      ['telefono', 'email', 'direccion', 'zona', 'notas'].forEach(k => { const v = g(r, k); if (v) c[k] = v; });
+      if (vid !== undefined && vid !== null) c.vendedorId = vid;
+      c.actualizado = new Date().toISOString(); c.dirty = true; c._q = norm([c.nombre, c.rif, c.codigo, c.zona].join(' ')); out.push(c);
+    }
   }
   await DB.putMany('clientes', out.map(({ _q, ...c }) => c));
   IMP = null; cerrarModal(); render();
-  toast(`${n} nuevos, ${u} actualizados${sinV ? ` · ${sinV} con vendedor no reconocido` : ''}`, 5000);
+  toast(`${n} nuevos, ${u} actualizados${sinV ? ` · ${sinV} con vendedor no reconocido` : ''}`, 6000);
   sincronizar(false);
 }
 

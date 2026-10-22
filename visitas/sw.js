@@ -1,5 +1,5 @@
 // Service worker: permite abrir la app sin internet (los datos ya viven en el dispositivo)
-const VERSION = 'gv-v2.1.0';
+const VERSION = 'gv-v2.1.1';
 const CORE = ['./', './index.html', './app.js', './styles.css', './config.js', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', e => {

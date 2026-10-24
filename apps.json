@@ -1,13 +1,13 @@
 {
-  "titulo": "Aplicaciones Fermetal",
-  "subtitulo": "Herramientas comerciales del equipo de ventas",
+  "titulo": "Aplicaciones Fermetal · Unique",
+  "subtitulo": "Las herramientas del equipo de ventas en un solo lugar: visitas, cotizaciones, clientes y conocimiento.",
   "apps": [
     {
       "id": "visitas",
       "nombre": "Gestor de Visitas",
       "descripcion": "Registra visitas a clientes con ubicación GPS y fotos de evidencia. Estadísticas, mapa y control del trabajo de cada vendedor.",
       "url": "./visitas/",
-      "color": "#0f766e",
+      "color": "#3a5068",
       "icono": "pin",
       "etiquetas": [
         "GPS",
@@ -20,8 +20,8 @@
       "id": "cotizador",
       "nombre": "Cotizador Fermetal",
       "descripcion": "Cotizaciones en USD y Bs a tasa BCV, con PDF y envío por WhatsApp o email.",
-      "url": "https://ijmf1978.github.io/cotizador/",
-      "color": "#b81920",
+      "url": "./cotizador/",
+      "color": "#c41319",
       "icono": "doc",
       "etiquetas": [
         "USD / Bs",
@@ -34,8 +34,8 @@
       "id": "cotizador2",
       "nombre": "Cotizador Unique",
       "descripcion": "Cotizador con la lista de precios y clientes de Unique.",
-      "url": "https://ijmf1978.github.io/cotizador2/",
-      "color": "#7c3aed",
+      "url": "./cotizador2/",
+      "color": "#666a49",
       "icono": "doc",
       "etiquetas": [
         "Unique",
@@ -48,11 +48,23 @@
       "nombre": "CRM",
       "descripcion": "Clientes, oportunidades y seguimiento comercial del equipo.",
       "url": "https://ijmf1978.github.io/CRM/",
-      "color": "#c2410c",
+      "color": "#9a5b13",
       "icono": "users",
       "etiquetas": [
         "Clientes",
         "Oportunidades"
+      ]
+    },
+    {
+      "id": "conocimiento",
+      "nombre": "Base de conocimiento",
+      "descripcion": "Consulta la información del negocio en NotebookLM: pregunta y obtén respuestas con sus fuentes.",
+      "url": "https://notebook.google.com/notebook/1b4bc2a7-2055-474e-8295-53de956dc38f",
+      "color": "#1a5fb4",
+      "icono": "book",
+      "etiquetas": [
+        "NotebookLM",
+        "Consultas"
       ]
     }
   ]

@@ -3,41 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Portal de Aplicaciones</title>
+<title>Portal Fermetal Unique</title>
 <meta name="description" content="Acceso a las aplicaciones comerciales: Gestor de Visitas, Cotizador y CRM">
-<meta name="theme-color" content="#0b1f24">
-<link rel="icon" href="visitas/icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#1d2126">
+<link rel="icon" href="logos/fermetal.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f1ea;--card:#fffdf8;--ink:#14211f;--muted:#5f6b67;--line:#e3ddd0;--accent:#0f766e;--shadow:0 1px 2px rgba(20,33,31,.05),0 10px 30px -12px rgba(20,33,31,.18);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1514;--card:#15201f;--ink:#e8efec;--muted:#98a6a1;--line:#263331;--shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0d1514;--card:#15201f;--ink:#e8efec;--muted:#98a6a1;--line:#263331;--shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}
+:root{--bg:#f2f3f4;--card:#ffffff;--ink:#1b1f23;--muted:#5d6670;--line:#e1e4e8;--bar:#1d2126;--bar-ink:#f5f6f7;
+  --fermetal:#c41319;--unique:#666a49;--shadow:0 1px 2px rgba(16,24,40,.05),0 12px 32px -14px rgba(16,24,40,.22);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#111417;--card:#1a1e22;--ink:#e9ecef;--muted:#9aa4ae;--line:#2a3036;--bar:#0b0d0f;--shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#111417;--card:#1a1e22;--ink:#e9ecef;--muted:#9aa4ae;--line:#2a3036;--bar:#0b0d0f;--shadow:0 1px 2px rgba(0,0,0,.4);color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif}
-.wrap{max-width:1040px;margin:0 auto;padding:clamp(28px,6vw,64px) 16px 48px}
-header{display:grid;gap:10px;margin-bottom:clamp(28px,5vw,48px)}
-.kicker{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
-h1{font-family:Fraunces,Georgia,serif;font-weight:600;font-size:clamp(2rem,5vw,3.1rem);line-height:1.05;margin:0;letter-spacing:-.01em}
-header p{margin:0;color:var(--muted);max-width:56ch}
+.corp{background:var(--bar);color:var(--bar-ink)}
+.corp-in{max-width:1080px;margin:0 auto;padding:calc(14px + env(safe-area-inset-top)) 16px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.marcas{display:flex;align-items:center;gap:12px}
+.marca{width:52px;height:52px;border-radius:14px;background:#fff;display:grid;place-items:center;padding:3px;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.marca img{width:100%;height:100%;object-fit:contain;display:block}
+.sep{width:1px;height:34px;background:rgba(255,255,255,.18)}
+.corp-txt{font-family:Archivo,Inter,sans-serif;font-weight:700;letter-spacing:.02em;font-size:.95rem;line-height:1.2}
+.corp-txt small{display:block;font-family:Inter,sans-serif;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-size:.66rem;color:rgba(245,246,247,.62)}
+.franja{height:5px;background:linear-gradient(90deg,var(--fermetal) 0 50%,var(--unique) 50% 100%)}
+.wrap{max-width:1080px;margin:0 auto;padding:clamp(26px,5vw,52px) 16px 48px}
+header{display:grid;gap:8px;margin-bottom:clamp(24px,4vw,40px)}
+.kicker{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fermetal);font-weight:600}
+h1{font-family:Archivo,Inter,sans-serif;font-weight:800;font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.05;margin:0;letter-spacing:-.015em}
+header p{margin:0;color:var(--muted);max-width:60ch}
+.marcas-sec{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 clamp(24px,4vw,36px);padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.marcas-sec>span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:6px}
+.marcas-sec .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;flex:1;min-width:min(100%,300px)}
+.marcas-sec figure{margin:0;height:88px;border-radius:12px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;padding:6px 10px;overflow:hidden}
+.marcas-sec figure.oscuro{background:#0a0a0a;border-color:#0a0a0a}
+.marcas-sec img{width:100%;height:100%;object-fit:contain;display:block;min-height:0}
+@media(max-width:520px){.marcas-sec figure{height:64px;padding:4px 6px}}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
-.app{position:relative;display:flex;flex-direction:column;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
-.app:hover{transform:translateY(-2px);border-color:var(--c)}
-.app::before{content:"";position:absolute;inset:0 0 auto;height:4px;border-radius:18px 18px 0 0;background:var(--c)}
+.app{position:relative;display:flex;flex-direction:column;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 20px 24px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s;overflow:hidden}
+.app:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
+.app::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--c)}
 .top{display:flex;gap:14px;align-items:center}
-.ico{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);flex:none}
-.logo{width:60px;height:60px;display:grid;place-items:center;flex:none;padding:3px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden}
+.ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c);flex:none}
+.logo{width:56px;height:56px;display:grid;place-items:center;flex:none;padding:3px;border-radius:14px;background:#fff;border:1px solid var(--line);overflow:hidden}
 .logo img{width:100%;height:100%;object-fit:contain;display:block}
 [hidden]{display:none!important}
 .ico svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.app h2{margin:0;font-size:1.12rem;font-weight:600}
-.new{font-size:.68rem;font-weight:600;padding:2px 7px;border-radius:99px;background:var(--c);color:#fff;margin-left:6px;vertical-align:2px}
+.app h2{margin:0;font-family:Archivo,Inter,sans-serif;font-size:1.14rem;font-weight:700}
+.new{font-family:Inter,sans-serif;font-size:.66rem;font-weight:600;padding:2px 7px;border-radius:99px;background:var(--c);color:#fff;margin-left:6px;vertical-align:2px}
 .app p{margin:0;color:var(--muted);font-size:.92rem;flex:1}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
-.tags span{font-size:.74rem;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.tags span{font-size:.72rem;padding:3px 9px;border-radius:6px;background:color-mix(in srgb,var(--ink) 5%,transparent);color:var(--muted)}
 .acts{display:flex;gap:8px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;border-radius:11px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:500;cursor:pointer;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-weight:600;cursor:pointer;text-decoration:none}
 .btn.go{flex:1;background:var(--c);border-color:var(--c);color:#fff}
 .btn.go:hover{filter:brightness(1.08)}
 .btn:not(.go):hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
@@ -46,41 +63,48 @@ header p{margin:0;color:var(--muted);max-width:56ch}
 .qr.on{display:grid}
 .qr canvas,.qr img{width:150px!important;height:150px!important}
 .help{margin-top:40px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
-.help div{border-top:1px solid var(--line);padding-top:14px}
-.help h3{margin:0 0 4px;font-size:.95rem}
+.help div{border-top:2px solid var(--line);padding-top:14px}
+.help h3{margin:0 0 4px;font-family:Archivo,Inter,sans-serif;font-size:.98rem}
 .help p{margin:0;color:var(--muted);font-size:.88rem}
-footer{margin-top:40px;color:var(--muted);font-size:.8rem;text-align:center}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;color:var(--muted);font-size:.8rem}
+footer .mini{display:flex;gap:8px;align-items:center}
+footer .mini img{width:26px;height:26px;border-radius:7px;background:#fff;object-fit:contain;border:1px solid var(--line)}
 </style>
 </head>
 <body>
+<div class="corp"><div class="corp-in">
+  <div class="marcas"><span class="marca"><img src="logos/fermetal.jpg" alt="Fermetal"></span><span class="sep" aria-hidden="true"></span><span class="marca"><img src="logos/unique.jpg" alt="Unique"></span></div>
+  <div class="corp-txt" style="text-align:right">Fermetal · Unique<small>Portal corporativo</small></div>
+</div></div>
+<div class="franja" aria-hidden="true"></div>
 <div class="wrap">
   <header>
-    <span class="kicker" id="kicker">Portal de aplicaciones</span>
+    <span class="kicker" id="kicker">Equipo comercial</span>
     <h1 id="titulo">Aplicaciones Fermetal</h1>
     <p id="subtitulo">Herramientas comerciales del equipo de ventas</p>
   </header>
+  <section class="marcas-sec" aria-label="Nuestras marcas"><span>Nuestras marcas</span>
+    <div class="tiles"><figure class="oscuro"><img src="logos/jappy.jpg" alt="Jappy"></figure><figure><img src="logos/cobra.jpg" alt="Cobra"></figure><figure><img src="logos/sunico.jpg" alt="Sunico"></figure></div>
+  </section>
   <main class="grid" id="apps" aria-live="polite"></main>
   <section class="help">
     <div><h3>Instálalas en tu teléfono</h3><p>Abre la app en Chrome (Android) o Safari (iPhone) y elige “Agregar a pantalla de inicio”. Quedará como una aplicación más.</p></div>
     <div><h3>Comparte con tu equipo</h3><p>Toca el botón del código QR y que tu vendedor lo escanee con la cámara del celular.</p></div>
     <div><h3>Datos centralizados</h3><p>La información se guarda en la cuenta de Google del área de desarrollo, compartida por todo el equipo.</p></div>
   </section>
-  <footer id="pie"></footer>
+  <footer><span class="mini"><img src="logos/fermetal.jpg" alt=""><img src="logos/unique.jpg" alt=""><span id="pie"></span></span><span>Fermetal · Unique</span></footer>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <script>
 // Si apps.json no carga (por ejemplo al abrir el archivo localmente), se usa esta copia.
-const RESPALDO = {"titulo":"Aplicaciones Fermetal","subtitulo":"Herramientas comerciales del equipo de ventas","apps":[
- {"id":"visitas","nombre":"Gestor de Visitas","descripcion":"Registra visitas a clientes con ubicación GPS y fotos de evidencia. Estadísticas, mapa y control del trabajo de cada vendedor.","url":"./visitas/","color":"#0f766e","icono":"pin","etiquetas":["GPS","Fotos","Estadísticas"],"nueva":true},
- {"id":"cotizador","nombre":"Cotizador Fermetal","descripcion":"Cotizaciones en USD y Bs a tasa BCV, con PDF y envío por WhatsApp o email.","url":"https://ijmf1978.github.io/cotizador/","color":"#b81920","icono":"doc","logo":"logos/fermetal.jpg","etiquetas":["USD / Bs","PDF","WhatsApp"]},
- {"id":"cotizador2","nombre":"Cotizador Unique","descripcion":"Cotizador con la lista de precios y clientes de Unique.","url":"https://ijmf1978.github.io/cotizador2/","color":"#7c3aed","icono":"doc","logo":"logos/unique.jpg","etiquetas":["Unique","PDF"]},
- {"id":"crm","nombre":"CRM","descripcion":"Clientes, oportunidades y seguimiento comercial del equipo.","url":"https://ijmf1978.github.io/CRM/","color":"#c2410c","icono":"users","etiquetas":["Clientes","Oportunidades"]}]};
+const RESPALDO = {"titulo": "Aplicaciones Fermetal · Unique", "subtitulo": "Las herramientas del equipo de ventas en un solo lugar: visitas, cotizaciones, clientes y conocimiento.", "apps": [{"id": "visitas", "nombre": "Gestor de Visitas", "descripcion": "Registra visitas a clientes con ubicación GPS y fotos de evidencia. Estadísticas, mapa y control del trabajo de cada vendedor.", "url": "./visitas/", "color": "#3a5068", "icono": "pin", "etiquetas": ["GPS", "Fotos", "Estadísticas"], "nueva": true}, {"id": "cotizador", "nombre": "Cotizador Fermetal", "descripcion": "Cotizaciones en USD y Bs a tasa BCV, con PDF y envío por WhatsApp o email.", "url": "./cotizador/", "color": "#c41319", "icono": "doc", "etiquetas": ["USD / Bs", "PDF", "WhatsApp"], "logo": "logos/fermetal.jpg"}, {"id": "cotizador2", "nombre": "Cotizador Unique", "descripcion": "Cotizador con la lista de precios y clientes de Unique.", "url": "./cotizador2/", "color": "#666a49", "icono": "doc", "etiquetas": ["Unique", "PDF"], "logo": "logos/unique.jpg"}, {"id": "crm", "nombre": "CRM", "descripcion": "Clientes, oportunidades y seguimiento comercial del equipo.", "url": "https://ijmf1978.github.io/CRM/", "color": "#9a5b13", "icono": "users", "etiquetas": ["Clientes", "Oportunidades"]}, {"id": "conocimiento", "nombre": "Base de conocimiento", "descripcion": "Consulta la información del negocio en NotebookLM: pregunta y obtén respuestas con sus fuentes.", "url": "https://notebook.google.com/notebook/1b4bc2a7-2055-474e-8295-53de956dc38f", "color": "#1a5fb4", "icono": "book", "etiquetas": ["NotebookLM", "Consultas"]}]};
 const ICONOS = {
   pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
   doc:'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
   users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2 .7 3.2 2.4 3.6 5.2"/>',
   chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  book:'<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M4 21.5A2.5 2.5 0 0 1 6.5 19H20v3H6.5"/><path d="M9 7h7M9 11h5"/>',
   box:'<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/>'
 };
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -89,7 +113,7 @@ const abs = u => new URL(u, location.href).href;
 function pintar(cfg){
   document.getElementById('titulo').textContent = cfg.titulo || 'Aplicaciones';
   document.getElementById('subtitulo').textContent = cfg.subtitulo || '';
-  document.title = cfg.titulo || 'Portal de Aplicaciones';
+  document.title = 'Portal Fermetal Unique';
   document.getElementById('apps').innerHTML = (cfg.apps || []).map(a => `
     <article class="app" style="--c:${esc(a.color || '#0f766e')}">
       <div class="top">${a.logo ? `<span class="logo"><img src="${esc(a.logo)}" alt="Logo ${esc(a.nombre)}" onerror="this.parentNode.hidden=true;this.parentNode.nextElementSibling.hidden=false"></span><span class="ico" hidden><svg viewBox="0 0 24 24">${ICONOS[a.icono] || ICONOS.box}</svg></span>` : `<span class="ico"><svg viewBox="0 0 24 24">${ICONOS[a.icono] || ICONOS.box}</svg></span>`}
@@ -103,7 +127,7 @@ function pintar(cfg){
         <button class="btn" data-copy="${esc(abs(a.url))}" title="Copiar enlace" aria-label="Copiar enlace"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
       </div>
     </article>`).join('');
-  document.getElementById('pie').textContent = `${(cfg.apps || []).length} aplicaciones · actualizado ${new Date().getFullYear()}`;
+  document.getElementById('pie').textContent = `${(cfg.apps || []).length} aplicaciones · ${new Date().getFullYear()}`;
 }
 document.addEventListener('click', async e => {
   const q = e.target.closest('[data-qr]'), c = e.target.closest('[data-copy]');

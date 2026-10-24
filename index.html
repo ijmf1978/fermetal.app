@@ -39,7 +39,7 @@ header p{margin:0;color:var(--muted);max-width:60ch}
 .marcas-sec img{width:100%;height:100%;object-fit:contain;display:block;min-height:0}
 @media(max-width:520px){.marcas-sec figure{height:64px;padding:4px 6px}}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
-.app{position:relative;display:flex;flex-direction:column;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 20px 24px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s;overflow:hidden}
+.app{position:relative;display:flex;flex-direction:column;gap:16px;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 20px 24px;box-shadow:var(--shadow);transition:transform .15s,border-color .15s;overflow:hidden}
 .app:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--c) 45%,var(--line))}
 .app::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--c)}
 .top{display:flex;gap:14px;align-items:center}
@@ -118,8 +118,6 @@ function pintar(cfg){
     <article class="app" style="--c:${esc(a.color || '#0f766e')}">
       <div class="top">${a.logo ? `<span class="logo"><img src="${esc(a.logo)}" alt="Logo ${esc(a.nombre)}" onerror="this.parentNode.hidden=true;this.parentNode.nextElementSibling.hidden=false"></span><span class="ico" hidden><svg viewBox="0 0 24 24">${ICONOS[a.icono] || ICONOS.box}</svg></span>` : `<span class="ico"><svg viewBox="0 0 24 24">${ICONOS[a.icono] || ICONOS.box}</svg></span>`}
         <h2>${esc(a.nombre)}${a.nueva ? '<span class="new">Nueva</span>' : ''}</h2></div>
-      <p>${esc(a.descripcion)}</p>
-      <div class="tags">${(a.etiquetas || []).map(t => `<span>${esc(t)}</span>`).join('')}</div>
       <div class="qr" id="qr-${esc(a.id)}"><div></div><span>${esc(abs(a.url))}</span></div>
       <div class="acts">
         <a class="btn go" href="${esc(a.url)}" ${/^https?:/.test(a.url) ? 'target="_blank" rel="noopener"' : ''}>Abrir <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
